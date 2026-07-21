@@ -292,6 +292,53 @@
         color: var(--text-dark);
         margin-top: 4px;
       }
+      .product-img-placeholder {
+        width: 100%;
+        aspect-ratio: 350 / 265;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        border: 2px dashed var(--primary-color);
+        background: var(--bg-color);
+        color: var(--primary-color);
+        font-family: var(--font-head);
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 1.4;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 10px;
+      }
+      .product-img-wrapper {
+        position: relative;
+      }
+      .product-img-wrapper .product-img {
+        margin-bottom: 15px;
+      }
+      .size-badge-circle {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 84px;
+        height: 84px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: var(--font-head);
+        font-weight: 800;
+        font-size: 13px;
+        line-height: 1.3;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+        border: 3px solid white;
+      }
 
       /* Company Hero */
       .company-hero {
@@ -1080,9 +1127,77 @@
         <article class="product-card">
           <img
             class="product-img"
-            src="assets/img/product-pineapple-xpress.webp"
-            alt="Pineapple Xpress 2.0"
+            src="assets/img/product-card7.webp"
+            alt="Grape Soda"
           />
+          <div class="card-content">
+            <h3 class="product-name">GRAPE SODA</h3>
+            <div class="tags-container">
+              <span class="tag" style="background-color: var(--c-myrcene)"
+                >MYRCENE (GRAPE)</span
+              >
+              <span class="tag" style="background-color: var(--c-linalool)"
+                >LINALOOL (FLORAL)</span
+              >
+            </div>
+            <div class="strain-cross">(Trop Cherry Gas x Grape Gas)</div>
+            <div class="strain-type">HYBRID</div>
+            <div class="thc-cbd">THC 22-26% | CBD &lt;1%</div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <img
+            class="product-img"
+            src="assets/img/product-cherry-marker.webp"
+            alt="Cherry Marker"
+          />
+          <div class="card-content">
+            <h3 class="product-name">CHERRY MARKER</h3>
+            <div class="tags-container">
+              <span class="tag" style="background-color: var(--c-myrcene)"
+                >MYRCENE (FRUIT)</span
+              >
+              <span class="tag" style="background-color: var(--c-caryophyllene)"
+                >CARYOPHYLLENE (GAS)</span
+              >
+            </div>
+            <div class="strain-type">INDICA DOMINANT</div>
+            <div class="thc-cbd">THC 24-28% | CBD &lt;1%</div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <img
+            class="product-img"
+            src="assets/img/product-card6.webp"
+            alt="Apple Gelato"
+          />
+          <div class="card-content">
+            <h3 class="product-name">APPLE GELATO</h3>
+            <div class="tags-container">
+              <span class="tag" style="background-color: var(--c-limonene)"
+                >LIMONENE (CITRUS)</span
+              >
+              <span class="tag" style="background-color: var(--c-myrcene)"
+                >MYRCENE (CREAM)</span
+              >
+            </div>
+            <div class="strain-cross">(Gelato x Apples &amp; Bananas)</div>
+            <div class="strain-type">BALANCED HYBRID</div>
+            <div class="thc-cbd">THC 24-28% | CBD 0%</div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-img-wrapper">
+            <img
+              class="product-img"
+              src="assets/img/product-pineapple-xpress.webp"
+              alt="Pineapple Xpress 2.0"
+            />
+            <div class="size-badge-circle">Size S<br />Only</div>
+          </div>
           <div class="card-content">
             <h3 class="product-name">PINEAPPLE XPRESS 2.0</h3>
             <div class="tags-container">
@@ -1101,7 +1216,8 @@
           </div>
         </article>
 
-        <article class="product-card">
+        <!-- Off this month's menu — keep markup for easy re-adding, toggle display:none to bring back -->
+        <article class="product-card" style="display: none">
           <img
             class="product-img"
             src="assets/img/product-rancid-runtz.webp"
@@ -1123,7 +1239,8 @@
           </div>
         </article>
 
-        <article class="product-card">
+        <!-- Off this month's menu — keep markup for easy re-adding, toggle display:none to bring back -->
+        <article class="product-card" style="display: none">
           <img
             class="product-img"
             src="assets/img/product-dopamine.webp"
@@ -1145,7 +1262,8 @@
           </div>
         </article>
 
-        <article class="product-card">
+        <!-- Off this month's menu — keep markup for easy re-adding, toggle display:none to bring back -->
+        <article class="product-card" style="display: none">
           <img
             class="product-img"
             src="assets/img/product-cap-junky.webp"
@@ -1166,74 +1284,28 @@
             <div class="thc-cbd">THC 28-30% | CBD &lt;1%</div>
           </div>
         </article>
-        
-<article class="product-card">
-  <img
-    class="product-img"
-    src="assets/img/product-card6.webp"
-    alt="Apple Gelato"
-  />
-  <div class="card-content">
-    <h3 class="product-name">APPLE GELATO</h3>
-    <div class="tags-container">
-      <span class="tag" style="background-color: var(--c-limonene)"
-        >LIMONENE (CITRUS)</span
-      >
-      <span class="tag" style="background-color: var(--c-myrcene)"
-        >MYRCENE (CREAM)</span
-      >
-    </div>
-    <div class="strain-cross">(Gelato x Apples & Bananas)</div>
-    <div class="strain-type">BALANCED HYBRID</div>
-    <div class="thc-cbd">THC 24-28% | CBD 0%</div>
-  </div>
-</article>
 
-<article class="product-card">
-  <img
-    class="product-img"
-    src="assets/img/product-card7.webp"
-    alt="Grape Soda"
-  />
-  <div class="card-content">
-    <h3 class="product-name">GRAPE SODA</h3>
-    <div class="tags-container">
-      <span class="tag" style="background-color: var(--c-myrcene)"
-        >MYRCENE (GRAPE)</span
-      >
-      <span class="tag" style="background-color: var(--c-linalool)"
-        >LINALOOL (FLORAL)</span
-      >
-    </div>
-    <div class="strain-cross">(Trop Cherry Gas x Grape Gas)</div>
-    <div class="strain-type">BALANCED HYBRID</div>
-    <div class="thc-cbd">THC 22-26% | CBD &lt;1%</div>
-  </div>
-</article>
-<article class="product-card">
-  <img
-    class="product-img"
-    src="assets/img/product-card5.webp"
-    alt="Black Garlic"
-  />
-  <div class="card-content">
-    <h3 class="product-name">BLACK GARLIC</h3>
-    <div class="tags-container">
-      <span class="tag" style="background-color: var(--c-myrcene)"
-        >MYRCENE (EARTHY)</span
-      >
-      <span class="tag" style="background-color: var(--c-humulene)"
-        >HUMULENE (WOOD)</span
-      >
-    </div>
-    <div class="strain-cross">(GMO x Dog Patch)</div>
-    <div class="strain-type">INDICA DOMINANT HYBRID</div>
-    <div class="thc-cbd">THC 29-31% | CBD &lt;1%</div>
-  </div>
-</article>
-
-  </article>
-</div>
+        <!-- Off this month's menu — keep markup for easy re-adding, toggle display:none to bring back -->
+        <article class="product-card" style="display: none">
+          <img
+            class="product-img"
+            src="assets/img/product-card5.webp"
+            alt="Black Garlic"
+          />
+          <div class="card-content">
+            <h3 class="product-name">BLACK GARLIC</h3>
+            <div class="tags-container">
+              <span class="tag" style="background-color: var(--c-myrcene)"
+                >MYRCENE (EARTHY)</span
+              >
+              <span class="tag" style="background-color: var(--c-humulene)"
+                >HUMULENE (WOOD)</span
+              >
+            </div>
+            <div class="strain-cross">(GMO x Dog Patch)</div>
+            <div class="strain-type">INDICA DOMINANT HYBRID</div>
+            <div class="thc-cbd">THC 29-31% | CBD &lt;1%</div>
+          </div>
         </article>
       </main>
     </div>
