@@ -716,6 +716,64 @@
         display: block;
         border: 1px solid #ddd;
       }
+      .cert-placeholder {
+        width: 100%;
+        aspect-ratio: 1 / 1.414;
+        border: 1px solid #ddd;
+        background: white;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .cert-bg {
+        position: absolute;
+        inset: 0;
+        filter: blur(3.5px);
+        opacity: 0.26;
+      }
+      .cert-bg .cert-seal {
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: #888780;
+      }
+      .cert-bg .cert-line {
+        position: absolute;
+        background: #b4b2a9;
+        border-radius: 2px;
+      }
+      .cert-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 20px;
+      }
+      .cert-content svg {
+        color: var(--primary-color);
+      }
+      .cert-content .cert-title {
+        font-family: var(--font-head);
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin: 0;
+      }
+      .cert-content .cert-sub {
+        font-family: var(--font-body);
+        font-size: 12px;
+        color: var(--text-gray);
+        margin: 0;
+      }
       .compliance-info-card {
         flex: 1.2;
         filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
@@ -1453,7 +1511,73 @@
     <section class="compliance-section">
       <div class="compliance-container">
         <div class="cert-wrapper">
-          <img src="assets/img/certificate-gacp.webp" alt="GACP Certificate" />
+          <div class="cert-placeholder">
+            <div class="cert-bg" aria-hidden="true">
+              <div class="cert-seal"></div>
+              <div
+                class="cert-line"
+                style="top: 24%; left: 30%; width: 40%; height: 7px; background: #5f5e5a"
+              ></div>
+              <div
+                class="cert-line"
+                style="top: 31%; left: 34%; width: 32%; height: 5px"
+              ></div>
+              <div
+                class="cert-line"
+                style="top: 42%; left: 22%; width: 56%; height: 5px"
+              ></div>
+              <div
+                class="cert-line"
+                style="top: 49%; left: 25%; width: 50%; height: 5px"
+              ></div>
+              <div
+                class="cert-line"
+                style="top: 56%; left: 28%; width: 44%; height: 5px"
+              ></div>
+              <div
+                class="cert-line"
+                style="top: 66%; left: 22%; width: 56%; height: 5px"
+              ></div>
+              <div
+                class="cert-line"
+                style="top: 73%; left: 30%; width: 40%; height: 5px"
+              ></div>
+              <div
+                class="cert-line"
+                style="
+                  top: 85%;
+                  right: 18%;
+                  width: 22%;
+                  height: 5px;
+                  background: #888780;
+                "
+              ></div>
+              <div
+                class="cert-line"
+                style="top: 90%; right: 20%; width: 18%; height: 4px"
+              ></div>
+            </div>
+            <div class="cert-content">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                />
+                <path d="M14 2v6h6" />
+                <path d="m9 15 2 2 4-4" />
+              </svg>
+              <p class="cert-title">Certificate available on request</p>
+              <p class="cert-sub">Included with every order</p>
+            </div>
+          </div>
         </div>
         <div class="compliance-info-card">
           <div class="compliance-header">
