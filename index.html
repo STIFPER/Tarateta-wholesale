@@ -317,27 +317,60 @@
       .product-img-wrapper .product-img {
         margin-bottom: 15px;
       }
-      .size-badge-circle {
+      @keyframes badge-grow {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+      .badge-wrap {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 84px;
-        height: 84px;
-        border-radius: 50%;
-        background: var(--primary-color);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-family: var(--font-head);
-        font-weight: 800;
-        font-size: 13px;
-        line-height: 1.3;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-        border: 3px solid white;
+        top: 0;
+        right: 4%;
+        width: clamp(50px, 20%, 79px);
+        aspect-ratio: 52 / 70;
+      }
+      .badge-wrap::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 15%;
+        width: 69%;
+        height: 80%;
+        z-index: 1;
+        border-radius: 0 0 3px 3px;
+      }
+      .badge-wrap.bestseller::before {
+        background: #085041;
+      }
+      .badge-wrap.new::before {
+        background: #7a2318;
+      }
+      .corner-badge {
+        position: absolute;
+        top: 20%;
+        left: 0;
+        width: 100%;
+        height: auto;
+        transform-origin: center;
+        z-index: 2;
+      }
+      .corner-badge.bestseller {
+        animation: badge-grow 3.4s ease-in-out infinite;
+        filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3))
+          drop-shadow(0 0 9px rgba(15, 110, 86, 0.7));
+      }
+      .corner-badge.new {
+        animation: badge-grow 3.4s ease-in-out infinite;
+        animation-delay: 1.1s;
+        filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3))
+          drop-shadow(0 0 9px rgba(224, 72, 58, 0.7));
+      }
+      .corner-badge.new.delay-2 {
+        animation-delay: 2.2s;
       }
 
       /* Company Hero */
@@ -1183,6 +1216,123 @@
       <!-- ===== SECTION 2: PRODUCT GRID ===== -->
       <main class="product-grid">
         <article class="product-card">
+          <div class="product-img-wrapper">
+            <img
+              class="product-img"
+              src="assets/img/product-pineapple-xpress.webp"
+              alt="Pineapple Xpress 2.0"
+            />
+            <div class="badge-wrap bestseller">
+              <img
+                class="corner-badge bestseller"
+                src="assets/img/badge-bestseller.png"
+                alt="Best Seller"
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="product-name">PINEAPPLE XPRESS 2.0</h3>
+            <div class="tags-container">
+              <span class="tag" style="background-color: var(--c-pinene)"
+                >PINENE (PINE)</span
+              >
+              <span class="tag" style="background-color: var(--c-myrcene)"
+                >MYRCENE (MUSK)</span
+              >
+            </div>
+            <div class="strain-cross">
+              (Pineapple Xpress x Pineapple Xpress)
+            </div>
+            <div class="strain-type">SATIVA DOMINANT HYBRID</div>
+            <div class="thc-cbd">THC 28-30% | CBD 1-2%</div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-img-wrapper">
+            <img
+              class="product-img"
+              src="assets/img/product-cap-junky.webp"
+              alt="Cap Junky"
+            />
+            <div class="badge-wrap new">
+              <img
+                class="corner-badge new"
+                src="assets/img/badge-new.png"
+                alt="New"
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="product-name">CAP JUNKY</h3>
+            <div class="tags-container">
+              <span class="tag" style="background-color: var(--c-limonene)"
+                >LIMONENE (FRUITS)</span
+              >
+              <span class="tag" style="background-color: var(--c-caryophyllene)"
+                >CARYOPHYLLENE (PEPPER)</span
+              >
+            </div>
+            <div class="strain-cross">(Alien Cookies x Kush Mints)</div>
+            <div class="strain-type">BALANCED HYBRID</div>
+            <div class="thc-cbd">THC 28-30% | CBD &lt;1%</div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-img-wrapper">
+            <img
+              class="product-img"
+              src="assets/img/product-rancid-runtz.webp"
+              alt="Rancid Runtz"
+            />
+            <div class="badge-wrap new">
+              <img
+                class="corner-badge new delay-2"
+                src="assets/img/badge-new.png"
+                alt="New"
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <h3 class="product-name">RANCID RUNTZ</h3>
+            <div class="tags-container">
+              <span class="tag" style="background-color: var(--c-caryophyllene)"
+                >CARYOPHYLLENE (GAS)</span
+              >
+              <span class="tag" style="background-color: var(--c-linalool)"
+                >LINALOOL (FRUITS)</span
+              >
+            </div>
+            <div class="strain-cross">(GMO x Runtz BX3)</div>
+            <div class="strain-type">INDICA DOMINANT</div>
+            <div class="thc-cbd">THC 28-31% | CBD &lt;1%</div>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <img
+            class="product-img"
+            src="assets/img/product-card6.webp"
+            alt="Apple Gelato"
+          />
+          <div class="card-content">
+            <h3 class="product-name">APPLE GELATO</h3>
+            <div class="tags-container">
+              <span class="tag" style="background-color: var(--c-limonene)"
+                >LIMONENE (CITRUS)</span
+              >
+              <span class="tag" style="background-color: var(--c-myrcene)"
+                >MYRCENE (CREAM)</span
+              >
+            </div>
+            <div class="strain-cross">(Gelato x Apples &amp; Bananas)</div>
+            <div class="strain-type">BALANCED HYBRID</div>
+            <div class="thc-cbd">THC 24-28% | CBD 0%</div>
+          </div>
+        </article>
+
+        <article class="product-card">
           <img
             class="product-img"
             src="assets/img/product-card7.webp"
@@ -1228,77 +1378,6 @@
           </div>
         </article>
 
-        <article class="product-card">
-          <img
-            class="product-img"
-            src="assets/img/product-card6.webp"
-            alt="Apple Gelato"
-          />
-          <div class="card-content">
-            <h3 class="product-name">APPLE GELATO</h3>
-            <div class="tags-container">
-              <span class="tag" style="background-color: var(--c-limonene)"
-                >LIMONENE (CITRUS)</span
-              >
-              <span class="tag" style="background-color: var(--c-myrcene)"
-                >MYRCENE (CREAM)</span
-              >
-            </div>
-            <div class="strain-cross">(Gelato x Apples &amp; Bananas)</div>
-            <div class="strain-type">BALANCED HYBRID</div>
-            <div class="thc-cbd">THC 24-28% | CBD 0%</div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <div class="product-img-wrapper">
-            <img
-              class="product-img"
-              src="assets/img/product-pineapple-xpress.webp"
-              alt="Pineapple Xpress 2.0"
-            />
-            <div class="size-badge-circle">Size S<br />Only</div>
-          </div>
-          <div class="card-content">
-            <h3 class="product-name">PINEAPPLE XPRESS 2.0</h3>
-            <div class="tags-container">
-              <span class="tag" style="background-color: var(--c-pinene)"
-                >PINENE (PINE)</span
-              >
-              <span class="tag" style="background-color: var(--c-myrcene)"
-                >MYRCENE (MUSK)</span
-              >
-            </div>
-            <div class="strain-cross">
-              (Pineapple Xpress x Pineapple Xpress)
-            </div>
-            <div class="strain-type">SATIVA DOMINANT HYBRID</div>
-            <div class="thc-cbd">THC 28-30% | CBD 1-2%</div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <img
-            class="product-img"
-            src="assets/img/product-rancid-runtz.webp"
-            alt="Rancid Runtz"
-          />
-          <div class="card-content">
-            <h3 class="product-name">RANCID RUNTZ</h3>
-            <div class="tags-container">
-              <span class="tag" style="background-color: var(--c-caryophyllene)"
-                >CARYOPHYLLENE (GAS)</span
-              >
-              <span class="tag" style="background-color: var(--c-linalool)"
-                >LINALOOL (FRUITS)</span
-              >
-            </div>
-            <div class="strain-cross">(GMO x Runtz BX3)</div>
-            <div class="strain-type">INDICA DOMINANT</div>
-            <div class="thc-cbd">THC 28-31% | CBD &lt;1%</div>
-          </div>
-        </article>
-
         <!-- Off this month's menu — keep markup for easy re-adding, toggle display:none to bring back -->
         <article class="product-card" style="display: none">
           <img
@@ -1319,28 +1398,6 @@
             <div class="strain-cross">(Blueberry Banana x Grape Gas)</div>
             <div class="strain-type">SATIVA-LEANING HYBRID</div>
             <div class="thc-cbd">THC 16-20% | CBD &lt;1%</div>
-          </div>
-        </article>
-
-        <article class="product-card">
-          <img
-            class="product-img"
-            src="assets/img/product-cap-junky.webp"
-            alt="Cap Junky"
-          />
-          <div class="card-content">
-            <h3 class="product-name">CAP JUNKY</h3>
-            <div class="tags-container">
-              <span class="tag" style="background-color: var(--c-limonene)"
-                >LIMONENE (FRUITS)</span
-              >
-              <span class="tag" style="background-color: var(--c-caryophyllene)"
-                >CARYOPHYLLENE (PEPPER)</span
-              >
-            </div>
-            <div class="strain-cross">(Alien Cookies x Kush Mints)</div>
-            <div class="strain-type">BALANCED HYBRID</div>
-            <div class="thc-cbd">THC 28-30% | CBD &lt;1%</div>
           </div>
         </article>
 
