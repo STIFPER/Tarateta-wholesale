@@ -5580,6 +5580,263 @@
           margin-bottom: 14px;
         }
       }
+
+      /* ===== v98 — boss edits (phone): Wiz highlight moves to Home after GACP; FLOWER SIZE REFERENCE closes the Menu page;
+         no grams / order list / detail sheet (cards behave like desktop). The order + sheet code is kept, just switched off. ===== */
+      @media (max-width: 600px) {
+        /* Wiz highlight = its own card at the end of Home (before the footer) */
+        #video { order: 8; }
+        .video-section {
+          padding: 18px 0 8px;
+        }
+        .video-section .video-layout,
+        .video-section.is-expanded .video-layout,
+        .video-section:not(.is-expanded) .video-layout {
+          border-radius: 30px;
+          box-shadow: 0 18px 32px -16px rgba(16, 50, 45, 0.35);
+        }
+        .video-section .video-layout > .video-logo {
+          display: none;
+        }
+        /* Menu page: the logo is now the green band on top of the joined card */
+        #menu {
+          padding-top: calc(16px + env(safe-area-inset-top, 0px));
+        }
+        #menu .menu-head > div:first-child {
+          display: block;
+          margin: 0;
+          padding: 16px 0 14px;
+          text-align: center;
+          border-radius: 30px 30px 0 0;
+          background: linear-gradient(180deg, #25877a 0%, #3c9489 100%);
+          box-shadow: 0 14px 26px -16px rgba(16, 50, 45, 0.28);
+        }
+        #menu .menu-head .menu-title {
+          margin: 0;
+        }
+        #menu .menu-head .menu-logo {
+          display: block;
+          margin: 0 auto;
+          width: 132px;
+          height: 40px;
+          object-fit: contain;
+          filter: brightness(0) invert(1);
+        }
+        #size { order: 6; }
+        /* no ordering flow */
+        .product-card { cursor: default; }
+        .order-bar, .order-sheet, .order-backdrop, .order-toast, .strain-sheet, .strain-backdrop {
+          display: none !important;
+        }
+      }
+
+      /* ===== v99 — desktop/tablet: the Wiz highlight sits right before OUR BESTSELLERS (after GACP) ===== */
+      @media (min-width: 601px) {
+        #video { order: 1; }
+        #bestsellers, #size { order: 2; }
+        /* same width as the GACP panel above it */
+        .video-section .video-layout,
+        .video-section.is-expanded .video-layout {
+          max-width: 1200px;
+        }
+      }
+
+      /* ===== v100 — phone Bestsellers page: only 3 strains now, so each card is big (photo on top, full width) and fills the screen ===== */
+      @media (max-width: 600px) {
+        .bs-grid {
+          gap: 16px;
+        }
+        .bs-grid .bs-card {
+          grid-template-columns: 1fr;
+          padding: 10px;
+          border-radius: 26px;
+        }
+        .bs-grid .bs-card .bs-img-wrapper {
+          min-height: 0;
+          height: auto;
+          aspect-ratio: 16 / 10;
+          border-radius: 20px;
+        }
+        .bs-grid .bs-card .bs-circle-img,
+        .bs-grid .bs-card .bs-circle-img img {
+          border-radius: 20px;
+        }
+        .bs-grid .bs-card .bs-info {
+          padding: 14px 8px 8px;
+        }
+        .bs-grid .bs-card .bs-info h3 {
+          font-size: 20px;
+          margin: 0 0 10px;
+        }
+        .bs-grid .bs-card .bs-details-grid {
+          gap: 6px 12px;
+        }
+        .bs-grid .bs-card .bs-label {
+          font-size: 10px;
+        }
+        .bs-grid .bs-card .bs-value {
+          font-size: 13.5px;
+        }
+        .bs-grid .bs-card .bs-details-grid > :nth-child(2) {
+          font-size: 16px;
+        }
+        .bs-grid .bs-card .bs-details-grid > :nth-child(6) {
+          font-size: 10px;
+          padding: 4px 11px;
+          margin-bottom: 4px;
+        }
+        #bestsellers .section-title {
+          font-size: 18px;
+          margin-bottom: 14px;
+        }
+      }
+
+      /* ===== v101 — phone Home: the Wiz highlight is a bigger, more eye-catching card (large video, bigger headline, short line of copy) ===== */
+      @media (max-width: 600px) {
+        .video-section {
+          padding: 26px 0 12px;
+        }
+        .video-section:not(.is-expanded) .video-layout {
+          grid-template-columns: 140px minmax(0, 1fr);
+          gap: 18px;
+          padding: 22px 18px 24px;
+          border-radius: 32px;
+        }
+        .video-section:not(.is-expanded) .phone-frame {
+          max-width: 140px;
+          padding: 6px;
+          border-radius: 26px;
+          box-shadow: 0 18px 34px rgba(8, 40, 35, 0.4), 0 0 0 4px rgba(255, 255, 255, 0.12);
+        }
+        .video-section:not(.is-expanded) .phone-frame .video-frame {
+          border-radius: 20px;
+        }
+        .video-section:not(.is-expanded) .video-play {
+          width: 52px;
+          height: 52px;
+        }
+        .video-section:not(.is-expanded) .video-play svg {
+          width: 22px;
+          height: 22px;
+        }
+        .video-section:not(.is-expanded) .video-copy {
+          gap: 10px;
+        }
+        .video-section:not(.is-expanded) .video-copy .section-title {
+          font-size: 22px;
+          line-height: 1.12;
+        }
+        .video-section:not(.is-expanded) .video-copy p {
+          display: none; /* the copy sat on the leaf pattern and was hard to read */
+        }
+        .video-section:not(.is-expanded) .video-badge {
+          font-size: 10.5px;
+          padding: 5px 12px;
+        }
+        .video-section:not(.is-expanded) .video-layout::before {
+          width: 260px;
+          right: -34px;
+          bottom: -40px;
+          opacity: 0.4;
+        }
+      }
+
+      /* ===== v102 — phone tab bar: smoother taps. A pill slides between Home / Menu / Bestsellers (no hard background swap),
+         soft press feedback, no tap delay, gentler page fade ===== */
+      @media (max-width: 600px) {
+        .tabbar {
+          --i: 0;
+          touch-action: manipulation;
+        }
+        body[data-pane="menu"] .tabbar { --i: 1; }
+        body[data-pane="best"] .tabbar { --i: 2; }
+        .tabbar::before {
+          content: "";
+          position: absolute;
+          top: 6px;
+          bottom: 6px;
+          left: 6px;
+          width: calc((100% - 12px) / 4);
+          border-radius: 20px;
+          background: rgba(37, 135, 122, 0.14);
+          transform: translateX(calc(var(--i) * 100%));
+          transition: transform 0.38s cubic-bezier(0.32, 0.9, 0.25, 1);
+          pointer-events: none;
+        }
+        .tabbar a {
+          position: relative;
+          z-index: 1;
+          transition: transform 0.22s cubic-bezier(0.32, 0.9, 0.25, 1), color 0.3s ease;
+        }
+        .tabbar a.is-active {
+          background: transparent;
+        }
+        .tabbar a svg {
+          transition: transform 0.3s cubic-bezier(0.32, 0.9, 0.25, 1);
+        }
+        .tabbar a.is-active svg {
+          transform: translateY(-1px) scale(1.08);
+        }
+        .tabbar a:active {
+          transform: scale(0.94);
+        }
+        .pane-enter {
+          animation: pane-in 0.24s cubic-bezier(0.25, 0.8, 0.3, 1) both;
+        }
+        @keyframes pane-in {
+          from { opacity: 0; transform: translateY(6px); }
+          to { opacity: 1; transform: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .tabbar::before, .tabbar a, .tabbar a svg { transition: none; }
+          .pane-enter { animation: none; }
+        }
+      }
+
+      /* ===== v103 — phone Menu page: the green band reads as a letterhead / cover of the menu
+         (logo, hairline, WHOLESALE MENU title, faint leaf), the price strip as its footer line ===== */
+      @media (max-width: 600px) {
+        #menu .menu-head > div:first-child {
+          position: relative;
+          overflow: hidden;
+          padding: 22px 0 18px;
+          background: linear-gradient(180deg, #25877a 0%, #3c9489 70%, #5ba49b 100%);
+        }
+        #menu .menu-head > div:first-child::before {
+          content: "";
+          position: absolute;
+          right: -30px;
+          bottom: -46px;
+          width: 230px;
+          height: 230px;
+          background: url("assets/img/hero-leaf.webp") center / contain no-repeat;
+          opacity: 0.22;
+          pointer-events: none;
+        }
+        #menu .menu-head > div:first-child::after {
+          content: "WHOLESALE MENU";
+          display: block;
+          position: relative;
+          width: fit-content;
+          margin: 14px auto 0;
+          padding-top: 11px;
+          border-top: 1px solid rgba(255, 255, 255, 0.45);
+          font-family: var(--font-head);
+          font-weight: 700;
+          font-size: 12px;
+          letter-spacing: 0.34em;
+          text-indent: 0.34em;
+          color: #fff;
+        }
+        #menu .menu-head .menu-title {
+          position: relative;
+          z-index: 1;
+        }
+        #menu .menu-head .menu-logo {
+          width: 150px;
+          height: 46px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -5682,7 +5939,7 @@
            YouTube can be used again by setting data-youtube="VIDEO_ID" (plays data-start→data-end).
            Source priority: data-youtube > data-vimeo > data-mp4.
            YouTube video must be Unlisted/Public with embedding allowed and NOT age-restricted, or the embed will not play. ===== -->
-      <section class="section video-section" id="video" data-pane="menu">
+      <section class="section video-section" id="video" data-pane="home">
         <div class="container video-layout">
           <!-- phone only: the TARATERA FLOWERS logo is the first row of the header card (the Menu section's own logo is hidden on phones) -->
           <div class="video-logo"><img src="assets/img/logo-horizontal-white.webp" alt="Taratera Flowers — Menu" width="834" height="250" decoding="async" /></div>
@@ -5720,7 +5977,7 @@
               <button type="button" data-filter="all" aria-pressed="true">All</button>
               <button type="button" data-filter="sativa" aria-pressed="false">Sativa</button>
               <button type="button" data-filter="indica" aria-pressed="false">Indica</button>
-              <button type="button" data-filter="balanced" aria-pressed="false">Balanced</button>
+              <button type="button" data-filter="balanced" aria-pressed="false">Hybrid</button>
             </div>
             </div>
           </div>
@@ -6184,7 +6441,7 @@
       </section>
 
       <!-- ===== 7. FLOWER SIZE REFERENCE ===== -->
-      <section class="section" id="size" data-pane="best">
+      <section class="section" id="size" data-pane="menu">
         <div class="container">
           <h2 class="section-title">FLOWER SIZE REFERENCE</h2>
           <div class="size-grid">
@@ -6521,8 +6778,9 @@
           back.hidden = true;
           document.body.style.overflow = "";
         }
+        var SHEET_ENABLED = false; /* boss 2026-10-09: phone cards behave like desktop (no detail sheet / grams picker). Set true to bring the order flow back. */
         grid.addEventListener("click", function (e) {
-          if (!phone.matches) return;
+          if (!SHEET_ENABLED || !phone.matches) return;
           var card = e.target.closest(".product-card");
           if (card) openSheet(card);
         });
