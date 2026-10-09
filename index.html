@@ -5479,6 +5479,107 @@
           margin-top: 0;
         }
       }
+
+      /* ===== v97 — phone: strain cards bigger (the product is the star); the green header band slimmer ===== */
+      @media (max-width: 600px) {
+        .product-grid {
+          gap: 14px;
+        }
+        .product-grid .product-card {
+          grid-template-columns: 42% 1fr;
+          padding: 10px;
+          border-radius: 24px;
+        }
+        .product-grid .product-card .product-img-wrapper,
+        .product-grid .product-card > .product-img,
+        .product-grid .product-card > .product-img-placeholder {
+          min-height: 200px;
+        }
+        .product-grid .product-card .product-img,
+        .product-grid .product-card .product-img-placeholder {
+          border-radius: 18px;
+        }
+        .product-grid .product-card .card-content {
+          padding: 4px 4px 4px 14px;
+        }
+        .product-grid .product-card .product-name {
+          font-size: 18px;
+          margin: 0 0 9px;
+        }
+        .product-grid .product-card .tags-container {
+          gap: 5px;
+          margin: 0 0 9px;
+        }
+        .product-grid .product-card .tag {
+          font-size: 10.5px;
+          padding: 4px 9px;
+        }
+        .product-grid .product-card .strain-cross {
+          font-size: 12.5px;
+          margin: 0 0 4px;
+        }
+        .product-grid .product-card .strain-type {
+          font-size: 11px;
+          margin: 0 0 10px;
+        }
+        .product-grid .product-card .thc-cbd {
+          font-size: 13.5px;
+        }
+        .product-grid .product-card .badge-wrap::before {
+          font-size: 9px;
+          padding: 5px 10px;
+        }
+
+        /* slimmer header band */
+        .video-section {
+          padding-top: calc(10px + env(safe-area-inset-top, 0px));
+        }
+        .video-section .video-layout > .video-logo img {
+          width: 132px;
+          height: 40px;
+        }
+        .video-section .video-layout > .video-logo {
+          padding: 0 0 2px;
+        }
+        .video-section:not(.is-expanded) .video-layout {
+          grid-template-columns: 78px minmax(0, 1fr);
+          gap: 12px;
+          padding: 10px 14px 12px;
+          row-gap: 4px;
+        }
+        .video-section:not(.is-expanded) .phone-frame {
+          max-width: 78px;
+          padding: 4px;
+          border-radius: 17px;
+        }
+        .video-section:not(.is-expanded) .phone-frame .video-frame {
+          border-radius: 13px;
+        }
+        .video-section:not(.is-expanded) .video-play {
+          width: 30px;
+          height: 30px;
+        }
+        .video-section:not(.is-expanded) .video-play svg {
+          width: 14px;
+          height: 14px;
+        }
+        .video-section:not(.is-expanded) .video-copy {
+          gap: 6px;
+        }
+        .video-section:not(.is-expanded) .video-copy .section-title {
+          font-size: 15px;
+        }
+        .video-section:not(.is-expanded) .video-badge {
+          font-size: 9px;
+          padding: 3px 8px;
+        }
+        .menu-tools {
+          padding: 8px 14px 10px;
+        }
+        .price-bar {
+          margin-bottom: 14px;
+        }
+      }
     </style>
   </head>
   <body>
