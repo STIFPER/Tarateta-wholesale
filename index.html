@@ -5458,6 +5458,13 @@
         -webkit-text-size-adjust: 100%;
         text-size-adjust: 100%;
       }
+
+      /* ===== v95 — expanded video card: the logo stays the first row (the copy block is ordered first in the stacked layout) ===== */
+      @media (max-width: 760px) {
+        .video-section .video-layout > .video-logo {
+          order: -2;
+        }
+      }
     </style>
   </head>
   <body>
