@@ -1,0 +1,42 @@
+{
+  "name": "TARATERA Wholesale",
+  "short_name": "TARATERA",
+  "description": "Thai cannabis flower wholesale menu — prices, strains and LINE ordering.",
+  "lang": "th",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E9F1EF",
+  "theme_color": "#25877A",
+  "icons": [
+    {
+      "src": "assets/pwa/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/pwa/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/pwa/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Menu",
+      "url": "./#menu"
+    },
+    {
+      "name": "Contact on LINE",
+      "url": "https://lin.ee/uqdLr7f"
+    }
+  ]
+}
