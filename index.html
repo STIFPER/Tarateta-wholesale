@@ -6131,6 +6131,50 @@
       @keyframes tt-spin {
         to { transform: rotate(360deg); }
       }
+
+      /* ===== v114 — phone Bestsellers photo: fixed for iPhone Safari. Safari collapsed the photo box to 0 height
+         (aspect-ratio on a grid item whose only child is absolutely positioned). Use the classic padding-top ratio box
+         (works on every browser) and plain top/left/width/height instead of inset. ===== */
+      @media (max-width: 600px) {
+        .bs-grid .bs-card .bs-img-wrapper {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 0;
+          min-height: 0;
+          padding-top: 62.5%; /* 16:10 */
+          aspect-ratio: auto;
+          align-self: start;
+          overflow: hidden;
+        }
+        .bs-grid .bs-card .bs-circle-img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: auto;
+          bottom: auto;
+          width: 100%;
+          height: 100%;
+        }
+        .bs-grid .bs-card .bs-circle-img img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      /* ===== v115 — phone ACTERA photo cards: same iPhone-safe ratio box as v114 (flex items sized only by aspect-ratio can collapse in Safari).
+         Card = 60% of the row; height = 60% × 4.6/4 = 69% of the row width. ===== */
+      @media (max-width: 600px) {
+        .partner-cards .pcard {
+          height: 0;
+          min-height: 0;
+          padding-top: 69%;
+          aspect-ratio: auto;
+          align-self: flex-start;
+        }
+      }
     </style>
   </head>
   <body>
@@ -6992,6 +7036,8 @@
         }
         function show(name, animate) {
           document.body.setAttribute("data-pane", name);
+          /* pictures on the page just opened: load them now (some mobile browsers never wake lazy images that were on a hidden page) */
+          document.querySelectorAll('main > [data-pane="' + name + '"] img[loading="lazy"]').forEach(function (im) { im.loading = "eager"; });
           bar.querySelectorAll("[data-tab]").forEach(function (a) {
             a.classList.toggle("is-active", a.getAttribute("data-tab") === name);
           });
