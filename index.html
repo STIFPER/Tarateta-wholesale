@@ -5450,6 +5450,14 @@
           background: none;
         }
       }
+
+      /* ===== v94 — touch devices: pinch-zoom and double-tap zoom are off (scrolling and the swipe carousels still work) ===== */
+      html.no-zoom,
+      html.no-zoom body {
+        touch-action: pan-x pan-y;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
     </style>
   </head>
   <body>
@@ -6635,8 +6643,24 @@
             el.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
           } else {
             el = document.createElement("video");
-            el.src = mp4; el.controls = true; el.autoplay = true; el.playsInline = true; el.preload = "metadata"; el.setAttribute("controlsList", "nodownload noremoteplayback"); el.setAttribute("disablePictureInPicture", "");
+            el.controls = true; el.playsInline = true; el.preload = "auto"; el.setAttribute("controlsList", "nodownload noremoteplayback"); el.setAttribute("disablePictureInPicture", "");
             el.setAttribute("playsinline", "");
+            var posterEl = frame.querySelector(".video-poster");
+            if (posterEl) el.poster = posterEl.getAttribute("src");
+            /* Some hosts (Cloudflare Pages) answer byte-range requests with the whole file, and iPhone Safari then refuses to play.
+               The clip is only ~1.6 MB, so fetch it once and play it from memory (a blob URL) — works on every browser. */
+            var startPlay = function (src) {
+              el.src = src;
+              var pr = el.play();
+              if (pr && pr.catch) pr.catch(function () {}); /* if the browser wants another tap, the controls are right there */
+            };
+            if (window.fetch && window.URL && URL.createObjectURL) {
+              fetch(mp4).then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.blob(); })
+                .then(function (b) { startPlay(URL.createObjectURL(b)); })
+                .catch(function () { startPlay(mp4); });
+            } else {
+              startPlay(mp4);
+            }
           }
           el.className = "video-player";
           frame.appendChild(el);
@@ -6644,6 +6668,25 @@
           var sec = frame.closest(".video-section");
           if (sec) sec.classList.add("is-expanded");
         });
+      })();
+
+      /* phones/tablets (touch + narrow): no pinch / double-tap zoom — the page is laid out for the device width.
+         (Desktop keeps normal browser zoom. Note: this also stops low-vision visitors from zooming in.) */
+      (function () {
+        var touch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+        var narrow = window.matchMedia && window.matchMedia("(max-width: 820px)").matches;
+        if (!touch || !narrow) return;
+        document.documentElement.classList.add("no-zoom");
+        var vp = document.querySelector('meta[name="viewport"]');
+        if (vp) vp.setAttribute("content", "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover");
+        /* iOS Safari ignores user-scalable=no — block its pinch gesture events directly */
+        ["gesturestart", "gesturechange", "gestureend"].forEach(function (t) {
+          document.addEventListener(t, function (e) { e.preventDefault(); }, { passive: false });
+        });
+        /* multi-finger touchmove (older iOS) */
+        document.addEventListener("touchmove", function (e) {
+          if (e.touches && e.touches.length > 1) e.preventDefault();
+        }, { passive: false });
       })();
     </script>
   </body>
