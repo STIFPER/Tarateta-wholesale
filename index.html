@@ -5837,6 +5837,45 @@
           height: 46px;
         }
       }
+
+      /* ===== v104 — phone Menu letterhead, cleaner: no lattice leaf, even teal band, short centred hairline above the title ===== */
+      @media (max-width: 600px) {
+        #menu .menu-head > div:first-child {
+          padding: 24px 0 20px;
+          background: linear-gradient(180deg, #25877a 0%, #2f8f83 100%);
+        }
+        #menu .menu-head > div:first-child::before {
+          display: none;
+        }
+        #menu .menu-head > div:first-child::after {
+          width: 160px;
+          margin: 14px auto 0;
+          padding-top: 12px;
+          text-align: center;
+          text-indent: 0.34em;
+          box-sizing: content-box;
+          white-space: nowrap;
+          border-top: 1px solid rgba(255, 255, 255, 0.5);
+          font-size: 11.5px;
+        }
+      }
+
+      /* ===== v105 — phone Menu top band: back to the plain version (logo only). No title text, no hairline, no leaf; the letterhead idea was dropped. ===== */
+      @media (max-width: 600px) {
+        #menu .menu-head > div:first-child::before,
+        #menu .menu-head > div:first-child::after {
+          display: none;
+          content: none;
+        }
+        #menu .menu-head > div:first-child {
+          padding: 16px 0 14px;
+          background: linear-gradient(180deg, #25877a 0%, #3c9489 100%);
+        }
+        #menu .menu-head .menu-logo {
+          width: 132px;
+          height: 40px;
+        }
+      }
     </style>
   </head>
   <body>
