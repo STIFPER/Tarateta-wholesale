@@ -50,6 +50,7 @@
         --c-linalool: #9094d8;
         --c-humulene: #f15a24;
         --c-bisabolol: #c19a3d;
+        --c-ocimene: #009282;
 
         /* fonts = original Taratera site — do not change */
         --font-head: "Montserrat", sans-serif;
@@ -6175,6 +6176,22 @@
           align-self: flex-start;
         }
       }
+
+      /* ===== v116 — phone tab bar: breathing room. 6px gap between the four tabs so the sliding pill never touches the LINE button ===== */
+      @media (max-width: 600px) {
+        .tabbar {
+          --gap: 6px;
+          column-gap: var(--gap);
+          padding: 7px;
+        }
+        .tabbar::before {
+          top: 7px;
+          bottom: 7px;
+          left: 7px;
+          width: calc((100% - 14px - 3 * var(--gap)) / 4);
+          transform: translateX(calc(var(--i) * (100% + var(--gap))));
+        }
+      }
     </style>
   </head>
   <body>
@@ -6462,7 +6479,8 @@
               </div>
             </article>
 
-            <article class="product-card">
+            <!-- Off this month's menu — keep markup for easy re-adding, toggle display:none to bring back -->
+            <article class="product-card" style="display: none">
               <img
                   loading="lazy"
                   decoding="async"
@@ -6483,6 +6501,41 @@
                 <div class="strain-cross">(Alien Cookies x Kush Mints)</div>
                 <div class="strain-type">BALANCED HYBRID</div>
                 <div class="thc-cbd">THC 28-30% | CBD &lt;1%</div>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-img-wrapper">
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  class="product-img"
+                  src="assets/img/product-lemon-cherry-runtz.webp"
+                  alt="Lemon Cherry Runtz"
+                />
+                <div class="badge-wrap new">
+                  <img
+                  loading="lazy"
+                  decoding="async"
+                    class="corner-badge new"
+                    src="assets/img/badge-new.png"
+                    alt="New"
+                  />
+                </div>
+              </div>
+              <div class="card-content">
+                <h3 class="product-name">LEMON CHERRY RUNTZ</h3>
+                <div class="tags-container">
+                  <span class="tag" style="background-color: var(--c-ocimene)"
+                    >OCIMENE (SWEET)</span
+                  >
+                  <span class="tag" style="background-color: var(--c-myrcene)"
+                    >MYRCENE (EARTHY)</span
+                  >
+                </div>
+                <div class="strain-cross">(Sunset Sherbet x Runtz)</div>
+                <div class="strain-type">SATIVA-LEANING HYBRID</div>
+                <div class="thc-cbd">THC 22-26% | CBD 0%</div>
               </div>
             </article>
 
