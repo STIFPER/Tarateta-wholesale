@@ -1,7 +1,7 @@
 /* TARATERA Wholesale — service worker.
    Network-first so a monthly stock update is always seen when online;
    the last visited copy is served when offline. */
-const CACHE = "taratera-v4";
+const CACHE = "taratera-v5";
 
 self.addEventListener("install", (e) => {
   self.skipWaiting();
