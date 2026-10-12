@@ -6192,6 +6192,475 @@
           transform: translateX(calc(var(--i) * (100% + var(--gap))));
         }
       }
+
+      /* ===== v117 — desktop/tablet: the whole opening (eyebrow, buttons, headline, lead) sits inside the first screen.
+         Layout only: the photo band is sized from the screen height. Fonts and buttons keep the site's original style. ===== */
+      @media (min-width: 601px) {
+        .factory-band {
+          height: clamp(400px, calc(100vh - 205px), 780px);
+          height: clamp(400px, calc(100svh - 205px), 780px);
+        }
+        .hero {
+          margin-top: -300px;
+        }
+      }
+
+      /* ===== v118 — short phones (e.g. iPhone SE): shrink the photo so the opening stays above the tab bar in the first screen ===== */
+      @media (max-width: 600px) {
+        .factory-band,
+        .factory-band img {
+          height: max(300px, min(125vw, calc(100vh - 312px)));
+          height: max(300px, min(125vw, calc(100svh - 312px)));
+        }
+      }
+
+      /* ===== v119 — Home opening order: the buttons come FIRST, right on the photo (eyebrow → View Menu / LINE → headline → lead).
+         Order only — the buttons keep exactly the site's existing button style. ===== */
+      .hero-copy {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-copy > .hero-eyebrow { order: -3; }
+      .hero-copy > .hero-actions {
+        order: -2;
+        margin: 4px 0 24px;
+        justify-content: center;
+      }
+      @media (max-width: 600px) {
+        .hero-copy > .hero-actions {
+          width: 100%;
+          margin: 2px 0 18px;
+        }
+      }
+
+      /* ===== v120 — buttons react to the mouse: a soft light glow, a small lift and a colour change (same button style at rest).
+         Only on devices with a real mouse, so phones never get a "stuck" hover; a light press feedback on touch. ===== */
+      .btn-primary,
+      .btn-glass,
+      .btn-line {
+        transition: transform 0.25s cubic-bezier(0.3, 0.8, 0.3, 1), box-shadow 0.25s ease, background 0.25s ease, color 0.2s ease, border-color 0.2s ease;
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .btn-primary:hover,
+        .btn-primary:focus-visible {
+          transform: translateY(-3px);
+          background: linear-gradient(180deg, #33a091, #25877a);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 0 26px rgba(91, 164, 155, 0.65), 0 18px 36px rgba(31, 116, 104, 0.38);
+        }
+        .btn-glass:hover,
+        .btn-glass:focus-visible {
+          transform: translateY(-3px);
+          background: linear-gradient(180deg, #25877a, #1d6f64);
+          border-color: rgba(255, 255, 255, 0.9);
+          color: #fff;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 22px rgba(91, 164, 155, 0.5), 0 16px 32px rgba(31, 116, 104, 0.3);
+        }
+        .btn-line:hover,
+        .btn-line:focus-visible {
+          transform: translateY(-2px);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 0 20px rgba(6, 199, 85, 0.55), 0 12px 26px rgba(6, 199, 85, 0.35);
+        }
+      }
+      .btn-primary:active,
+      .btn-glass:active,
+      .btn-line:active {
+        transform: scale(0.97);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .btn-primary, .btn-glass, .btn-line { transition: none; }
+        .btn-primary:hover, .btn-glass:hover, .btn-line:hover { transform: none; }
+      }
+
+      /* ===== v121 — touch screens (no mouse hover): "View Menu" tells the visitor "tap me" by itself —
+         a soft neon glow that breathes teal → mint, a light streak sweeping across, and a small hop every few seconds.
+         Button keeps its normal style; reduced-motion users get a static glow only. ===== */
+      @media (hover: none) {
+        .hero-actions .btn-primary {
+          position: relative;
+          overflow: hidden;
+          isolation: isolate;
+          animation: tt-neon 2.6s ease-in-out infinite, tt-hop 4.8s ease-in-out 1.5s infinite;
+        }
+        .hero-actions .btn-primary::before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          bottom: 0;
+          left: -60%;
+          width: 45%;
+          background: linear-gradient(100deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.38) 50%, rgba(255, 255, 255, 0) 100%);
+          transform: skewX(-18deg);
+          animation: tt-sweep 3.2s ease-in-out 0.8s infinite;
+          pointer-events: none;
+        }
+        .hero-actions .btn-primary:active {
+          animation: none;
+          transform: scale(0.96);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 0 28px rgba(120, 220, 200, 0.9);
+        }
+      }
+      @keyframes tt-neon {
+        0%, 100% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 24px rgba(31, 116, 104, 0.3), 0 0 0 rgba(120, 220, 200, 0); }
+        50% { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 10px 24px rgba(31, 116, 104, 0.3), 0 0 22px rgba(120, 220, 200, 0.85), 0 0 42px rgba(37, 135, 122, 0.45); }
+      }
+      @keyframes tt-hop {
+        0%, 84%, 100% { transform: translateY(0); }
+        88% { transform: translateY(-5px); }
+        92% { transform: translateY(0); }
+        95% { transform: translateY(-2px); }
+        98% { transform: translateY(0); }
+      }
+      @keyframes tt-sweep {
+        0% { left: -60%; }
+        55%, 100% { left: 120%; }
+      }
+      @media (hover: none) and (prefers-reduced-motion: reduce) {
+        .hero-actions .btn-primary {
+          animation: none;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 18px rgba(120, 220, 200, 0.6), 0 10px 24px rgba(31, 116, 104, 0.3);
+        }
+        .hero-actions .btn-primary::before { animation: none; display: none; }
+      }
+
+      /* ===== v122 — phone opening proportions: the two buttons no longer run edge to edge on big phones (max 320px, centred,
+         so they line up with the headline width) and sit closer to it; the light streak is a soft blurred glow, not a hard white bar ===== */
+      @media (max-width: 600px) {
+        .hero-copy > .hero-actions {
+          width: 100%;
+          max-width: 320px;
+          margin: 2px auto 10px;
+          gap: 10px;
+        }
+        .hero h1 {
+          margin-top: 10px;
+        }
+      }
+      @media (hover: none) {
+        .hero-actions .btn-primary::before {
+          width: 70%;
+          left: -80%;
+          background: radial-gradient(closest-side, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0));
+          transform: none;
+          filter: blur(6px);
+          animation: tt-sweep-soft 3.6s ease-in-out 0.8s infinite;
+        }
+      }
+      @keyframes tt-sweep-soft {
+        0% { left: -80%; }
+        60%, 100% { left: 115%; }
+      }
+
+      /* ===== v123 — opening text reads as ONE block: headline and lead tied together (tight, even spacing),
+         balanced line breaks, lead width matched to the headline, calmer line height. Desktop + phone. ===== */
+      .hero h1 {
+        margin: 0;
+        line-height: 1.12;
+        text-wrap: balance;
+      }
+      .hero-lead {
+        margin: 0;
+        line-height: 1.55;
+        max-width: 34ch;
+        margin-left: auto;
+        margin-right: auto;
+        text-wrap: balance;
+      }
+      .hero-copy > .hero-lead {
+        margin-top: 14px;
+      }
+      /* the copy column had a 26px flex gap that pushed the lead away from the headline — spacing is set per element instead */
+      .hero-copy { gap: 0; }
+      /* headline keeps its three-line shape on every screen: “We are Thailand's leading / vertically integrated / cannabis company.” */
+      .hero h1 .accent { display: block; }
+      .hero-copy > .hero-eyebrow { margin-bottom: 18px; }
+      @media (min-width: 601px) {
+        .hero-copy > .hero-actions { margin: 6px 0 30px; }
+        .hero-copy > .hero-lead { margin-top: 18px; max-width: 40ch; }
+      }
+      @media (max-width: 600px) {
+        .hero-copy > .hero-actions { margin: 2px auto 22px; }
+        .hero-copy > .hero-lead { margin-top: 12px; margin-bottom: 8px; }
+      }
+
+      /* ===== v124 — opening spacing: no dead gap under the lead (was ~110px before "Our Cultivation Partner"),
+         and a calmer lead (smaller, tighter) so headline + lead + next section flow as one rhythm ===== */
+      .hero-lead {
+        letter-spacing: 0;
+        line-height: 1.5;
+      }
+      @media (min-width: 601px) {
+        .hero { padding-bottom: 20px; }
+        #about { padding-top: 40px; }
+        .hero-lead { font-size: 18px; }
+        .hero-copy > .hero-lead { margin-top: 16px; }
+      }
+      @media (max-width: 600px) {
+        .hero { padding-bottom: 8px; }
+        #about { padding-top: 24px; }
+      }
+
+      /* ===== v125 — computers get the same "click me" effect as phones on View Menu: breathing neon glow, soft blurred
+         light sweep, small hop. On mouse-over the loop pauses and the v120 hover (lift + brighter + glow) takes over. ===== */
+      @media (hover: hover) {
+        .hero-actions .btn-primary {
+          position: relative;
+          overflow: hidden;
+          isolation: isolate;
+          animation: tt-neon 2.6s ease-in-out infinite, tt-hop 4.8s ease-in-out 1.5s infinite;
+        }
+        .hero-actions .btn-primary::before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          top: 0;
+          bottom: 0;
+          width: 70%;
+          left: -80%;
+          background: radial-gradient(closest-side, rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0));
+          filter: blur(6px);
+          animation: tt-sweep-soft 3.6s ease-in-out 0.8s infinite;
+          pointer-events: none;
+        }
+        .hero-actions .btn-primary:hover,
+        .hero-actions .btn-primary:focus-visible {
+          animation: none;
+        }
+      }
+      @media (hover: hover) and (prefers-reduced-motion: reduce) {
+        .hero-actions .btn-primary { animation: none; }
+        .hero-actions .btn-primary::before { display: none; }
+      }
+
+      /* ===== v126 — "Wholesale Inquiries & Orders" is no longer a boxed pill: plain spaced caps with fine fading lines on both
+         sides, sitting on a soft edgeless light haze so it stays readable on the photo ===== */
+      .hero .hero-eyebrow {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        padding: 6px 4px;
+        background: none;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        color: var(--teal-dark);
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-shadow: 0 0 10px rgba(244, 250, 249, 0.95), 0 0 3px rgba(244, 250, 249, 0.9);
+      }
+      .hero .hero-eyebrow::before,
+      .hero .hero-eyebrow::after {
+        content: "";
+        flex: none;
+        width: 42px;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(29, 111, 100, 0), rgba(29, 111, 100, 0.75));
+      }
+      .hero .hero-eyebrow::after {
+        background: linear-gradient(90deg, rgba(29, 111, 100, 0.75), rgba(29, 111, 100, 0));
+      }
+      /* the label now sits UNDER the buttons, on the faded light part of the photo, right above the headline */
+      .hero-copy > .hero-eyebrow { order: -3; margin-bottom: 16px; }
+      /* readability on the photo comes from a soft light halo around the letters only (no box behind them) */
+      .hero .hero-eyebrow {
+        color: #0f4a42;
+        font-weight: 800;
+        text-shadow: 0 0 3px #fff, 0 0 6px #fff, 0 0 10px rgba(255, 255, 255, 0.95), 0 0 18px rgba(255, 255, 255, 0.9), 0 0 30px rgba(244, 250, 249, 0.85), 0 0 48px rgba(244, 250, 249, 0.6);
+      }
+      .hero .hero-eyebrow::before,
+      .hero .hero-eyebrow::after {
+        height: 1.5px;
+        box-shadow: 0 0 6px rgba(244, 250, 249, 0.9);
+      }
+      @media (max-width: 600px) {
+        .hero .hero-eyebrow {
+          gap: 10px;
+          letter-spacing: 0.18em;
+        }
+        .hero .hero-eyebrow::before,
+        .hero .hero-eyebrow::after {
+          width: 26px;
+        }
+      }
+
+      /* ===== v127 — opening photo: the photo sits higher (less pale space at the top) and its fade to the page colour
+         starts earlier, so by the time the label / buttons / headline begin, the background behind them is already soft and light ===== */
+      .factory-band img {
+        object-position: 50% 72%;
+        -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.4) 0%, #000 8%, #000 22%, rgba(0,0,0,.93) 28%, rgba(0,0,0,.78) 34%, rgba(0,0,0,.58) 40%, rgba(0,0,0,.38) 45%, rgba(0,0,0,.2) 50%, rgba(0,0,0,.08) 54%, rgba(0,0,0,0) 58%, rgba(0,0,0,0) 100%);
+        mask-image: linear-gradient(180deg, rgba(0,0,0,.4) 0%, #000 8%, #000 22%, rgba(0,0,0,.93) 28%, rgba(0,0,0,.78) 34%, rgba(0,0,0,.58) 40%, rgba(0,0,0,.38) 45%, rgba(0,0,0,.2) 50%, rgba(0,0,0,.08) 54%, rgba(0,0,0,0) 58%, rgba(0,0,0,0) 100%);
+      }
+      @media (max-width: 600px) {
+        .factory-band img {
+          object-position: 46% 52%;
+          -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.08) 5%, rgba(0,0,0,.3) 10%, rgba(0,0,0,.62) 15%, rgba(0,0,0,.88) 20%, #000 25%, #000 36%, rgba(0,0,0,.9) 42%, rgba(0,0,0,.7) 48%, rgba(0,0,0,.46) 54%, rgba(0,0,0,.24) 60%, rgba(0,0,0,.09) 65%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%);
+          mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.08) 5%, rgba(0,0,0,.3) 10%, rgba(0,0,0,.62) 15%, rgba(0,0,0,.88) 20%, #000 25%, #000 36%, rgba(0,0,0,.9) 42%, rgba(0,0,0,.7) 48%, rgba(0,0,0,.46) 54%, rgba(0,0,0,.24) 60%, rgba(0,0,0,.09) 65%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%);
+        }
+      }
+
+      /* ===== v128 — the two workers are the focus: the picture is nudged up inside its frame (the bottom gap is already faded out),
+         and the fade lives on a fixed wrapper (the logo on top of the photo stays unfaded) so it stays put while the picture slides ===== */
+      .factory-band picture {
+        display: block;
+        width: 100%;
+        height: 100%;
+        -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.4) 0%, #000 8%, #000 22%, rgba(0,0,0,.93) 28%, rgba(0,0,0,.78) 34%, rgba(0,0,0,.58) 40%, rgba(0,0,0,.38) 45%, rgba(0,0,0,.2) 50%, rgba(0,0,0,.08) 54%, rgba(0,0,0,0) 58%, rgba(0,0,0,0) 100%);
+        mask-image: linear-gradient(180deg, rgba(0,0,0,.4) 0%, #000 8%, #000 22%, rgba(0,0,0,.93) 28%, rgba(0,0,0,.78) 34%, rgba(0,0,0,.58) 40%, rgba(0,0,0,.38) 45%, rgba(0,0,0,.2) 50%, rgba(0,0,0,.08) 54%, rgba(0,0,0,0) 58%, rgba(0,0,0,0) 100%);
+      }
+      .factory-band img {
+        -webkit-mask-image: none;
+        mask-image: none;
+        object-position: 50% 58%; /* desktop: heads just clear of the nav bar, both workers fully in view */
+        transform: none;
+      }
+      @media (max-width: 600px) {
+        .factory-band picture {
+          -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.08) 5%, rgba(0,0,0,.3) 10%, rgba(0,0,0,.62) 15%, rgba(0,0,0,.88) 20%, #000 25%, #000 36%, rgba(0,0,0,.9) 42%, rgba(0,0,0,.7) 48%, rgba(0,0,0,.46) 54%, rgba(0,0,0,.24) 60%, rgba(0,0,0,.09) 65%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%);
+          mask-image: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.08) 5%, rgba(0,0,0,.3) 10%, rgba(0,0,0,.62) 15%, rgba(0,0,0,.88) 20%, #000 25%, #000 36%, rgba(0,0,0,.9) 42%, rgba(0,0,0,.7) 48%, rgba(0,0,0,.46) 54%, rgba(0,0,0,.24) 60%, rgba(0,0,0,.09) 65%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%);
+        }
+        .factory-band img {
+          object-position: 46% 50%;
+          transform: translateY(-17%);
+        }
+      }
+
+      /* ===== v129 — desktop/tablet first screen = the photo, then ONE block: label + View Menu / Contact Sales on LINE
+         (sitting at the foot of the first screen). The headline and lead start just under it, as the next thing to scroll to. ===== */
+      @media (min-width: 601px) {
+        .factory-band {
+          height: clamp(480px, calc(100vh - 60px), 900px);
+          height: clamp(480px, calc(100svh - 60px), 900px);
+        }
+        .factory-band img {
+          object-position: 50% 100%;
+        }
+        .factory-band picture {
+          -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,.4) 0%, #000 8%, #000 42%, rgba(0,0,0,.93) 48%, rgba(0,0,0,.78) 54%, rgba(0,0,0,.58) 60%, rgba(0,0,0,.38) 65%, rgba(0,0,0,.2) 70%, rgba(0,0,0,.08) 74%, rgba(0,0,0,0) 78%, rgba(0,0,0,0) 100%);
+          mask-image: linear-gradient(180deg, rgba(0,0,0,.4) 0%, #000 8%, #000 42%, rgba(0,0,0,.93) 48%, rgba(0,0,0,.78) 54%, rgba(0,0,0,.58) 60%, rgba(0,0,0,.38) 65%, rgba(0,0,0,.2) 70%, rgba(0,0,0,.08) 74%, rgba(0,0,0,0) 78%, rgba(0,0,0,0) 100%);
+        }
+        .hero {
+          margin-top: -170px;
+        }
+      }
+
+      /* ===== v130 — desktop/tablet, EVERY size: the first screen is exactly two blocks — the photo, then label + the two buttons.
+         The headline never shows up in it; it starts just below the fold (a clear break between the opening block and the story). ===== */
+      @media (min-width: 601px) {
+        .factory-band {
+          height: clamp(480px, calc(100vh - 60px), 1300px);
+          height: clamp(480px, calc(100svh - 60px), 1300px);
+        }
+        .hero-copy > .hero-actions {
+          margin-bottom: 150px;
+        }
+      }
+
+      /* ===== v131 — desktop/tablet first screen, balanced: the photo runs a little lower so label + buttons sit with an even
+         margin to the bottom edge (no big empty strip), and the two buttons share one width so the pair is symmetric ===== */
+      @media (min-width: 601px) {
+        .factory-band {
+          height: clamp(500px, calc(100vh + 16px), 1316px);
+          height: clamp(500px, calc(100svh + 16px), 1316px);
+        }
+        .hero-copy > .hero-actions {
+          flex-direction: row;
+          flex-wrap: nowrap;
+          justify-content: center;
+          align-items: center;
+          width: auto;
+          gap: 14px;
+        }
+        .hero-copy > .hero-actions .btn-primary,
+        .hero-copy > .hero-actions .btn-glass {
+          width: 260px;
+          justify-content: center;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+      /* ===== v132 — "Wholesale Inquiries & Orders": the side lines are gone; plain label, re-sized to sit well above the buttons
+         (desktop a size up, phone a touch smaller), lighter tracking so it reads as one line of text ===== */
+      .hero .hero-eyebrow::before,
+      .hero .hero-eyebrow::after {
+        content: none;
+        display: none;
+      }
+      .hero .hero-eyebrow {
+        gap: 0;
+        padding: 4px 0;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.26em;
+        text-indent: 0.26em;
+        text-shadow: none;
+      }
+      @media (min-width: 601px) {
+        .hero .hero-eyebrow {
+          font-size: 15px;
+          letter-spacing: 0.3em;
+          text-indent: 0.3em;
+          margin-bottom: 20px;
+        }
+      }
+      @media (max-width: 600px) {
+        .hero .hero-eyebrow {
+          font-size: 11.5px;
+          letter-spacing: 0.2em;
+          text-indent: 0.2em;
+        }
+      }
+
+      /* ===== v133 — the fade is no longer plain white: where the photo melts away it picks up the brand greens
+         (mint #91C2BC → teal #5BA49B), a soft glow rising behind the label and buttons. Colour only, behind the photo. ===== */
+      .factory-band {
+        position: relative;
+      }
+      .factory-band::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse 60% 22% at 50% 76%, rgba(91, 164, 155, 0.4), rgba(91, 164, 155, 0) 100%),
+          radial-gradient(ellipse 95% 20% at 50% 78%, rgba(145, 194, 188, 0.5), rgba(145, 194, 188, 0) 100%),
+          linear-gradient(180deg, rgba(145, 194, 188, 0) 40%, rgba(145, 194, 188, 0.32) 68%, rgba(145, 194, 188, 0) 96%);
+      }
+      .factory-band picture {
+        position: relative;
+        z-index: 1;
+      }
+
+      /* ===== v134 — the green tint is lighter (mostly white-mint) and no longer concentrated at the photo's foot:
+         one long, gentle gradient starts above the label and runs down behind the buttons, headline and lead before it fades out ===== */
+      .factory-band::before {
+        content: none;
+        display: none;
+      }
+      /* the gradient is the hero section's own background (the section clips anything drawn outside its box) */
+      .hero {
+        /* eased (smoothstep) stops: no visible band where the tint begins or ends */
+        background: linear-gradient(180deg, rgba(145, 194, 188, 0.000) 0%, rgba(145, 194, 188, 0.011) 5%, rgba(145, 194, 188, 0.039) 10%, rgba(145, 194, 188, 0.077) 15%, rgba(145, 194, 188, 0.116) 20%, rgba(145, 194, 188, 0.149) 25%, rgba(145, 194, 188, 0.168) 30%, rgba(145, 194, 188, 0.169) 35%, rgba(145, 194, 188, 0.163) 40%, rgba(145, 194, 188, 0.154) 45%, rgba(145, 194, 188, 0.141) 50%, rgba(145, 194, 188, 0.125) 55%, rgba(145, 194, 188, 0.107) 60%, rgba(145, 194, 188, 0.089) 65%, rgba(145, 194, 188, 0.070) 70%, rgba(145, 194, 188, 0.052) 75%, rgba(145, 194, 188, 0.035) 80%, rgba(145, 194, 188, 0.021) 85%, rgba(145, 194, 188, 0.010) 90%, rgba(145, 194, 188, 0.003) 95%, rgba(145, 194, 188, 0.000) 100%);
+      }
+
+      /* ===== v135 — photo fade with eased (smoothstep) stops so the photo melts into the page with no visible step or band ===== */
+      @media (min-width: 601px) {
+        .factory-band picture {
+          -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.400) 0.0%, rgba(0,0,0,0.719) 4.2%, rgba(0,0,0,1.000) 8.3%, rgba(0,0,0,1.000) 12.5%, rgba(0,0,0,1.000) 16.7%, rgba(0,0,0,1.000) 20.8%, rgba(0,0,0,1.000) 25.0%, rgba(0,0,0,1.000) 29.2%, rgba(0,0,0,1.000) 33.3%, rgba(0,0,0,1.000) 37.5%, rgba(0,0,0,0.995) 41.7%, rgba(0,0,0,0.947) 45.8%, rgba(0,0,0,0.857) 50.0%, rgba(0,0,0,0.735) 54.2%, rgba(0,0,0,0.595) 58.3%, rgba(0,0,0,0.447) 62.5%, rgba(0,0,0,0.303) 66.7%, rgba(0,0,0,0.174) 70.8%, rgba(0,0,0,0.074) 75.0%, rgba(0,0,0,0.013) 79.2%, rgba(0,0,0,0.000) 83.3%, rgba(0,0,0,0.000) 87.5%, rgba(0,0,0,0.000) 91.7%, rgba(0,0,0,0.000) 95.8%, rgba(0,0,0,0.000) 100.0%);
+          mask-image: linear-gradient(180deg, rgba(0,0,0,0.400) 0.0%, rgba(0,0,0,0.719) 4.2%, rgba(0,0,0,1.000) 8.3%, rgba(0,0,0,1.000) 12.5%, rgba(0,0,0,1.000) 16.7%, rgba(0,0,0,1.000) 20.8%, rgba(0,0,0,1.000) 25.0%, rgba(0,0,0,1.000) 29.2%, rgba(0,0,0,1.000) 33.3%, rgba(0,0,0,1.000) 37.5%, rgba(0,0,0,0.995) 41.7%, rgba(0,0,0,0.947) 45.8%, rgba(0,0,0,0.857) 50.0%, rgba(0,0,0,0.735) 54.2%, rgba(0,0,0,0.595) 58.3%, rgba(0,0,0,0.447) 62.5%, rgba(0,0,0,0.303) 66.7%, rgba(0,0,0,0.174) 70.8%, rgba(0,0,0,0.074) 75.0%, rgba(0,0,0,0.013) 79.2%, rgba(0,0,0,0.000) 83.3%, rgba(0,0,0,0.000) 87.5%, rgba(0,0,0,0.000) 91.7%, rgba(0,0,0,0.000) 95.8%, rgba(0,0,0,0.000) 100.0%);
+        }
+      }
+      @media (max-width: 600px) {
+        .factory-band picture {
+          -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.000) 0.0%, rgba(0,0,0,0.074) 4.2%, rgba(0,0,0,0.259) 8.3%, rgba(0,0,0,0.500) 12.5%, rgba(0,0,0,0.741) 16.7%, rgba(0,0,0,0.926) 20.8%, rgba(0,0,0,1.000) 25.0%, rgba(0,0,0,1.000) 29.2%, rgba(0,0,0,1.000) 33.3%, rgba(0,0,0,0.995) 37.5%, rgba(0,0,0,0.933) 41.7%, rgba(0,0,0,0.817) 45.8%, rgba(0,0,0,0.664) 50.0%, rgba(0,0,0,0.493) 54.2%, rgba(0,0,0,0.323) 58.3%, rgba(0,0,0,0.172) 62.5%, rgba(0,0,0,0.059) 66.7%, rgba(0,0,0,0.003) 70.8%, rgba(0,0,0,0.000) 75.0%, rgba(0,0,0,0.000) 79.2%, rgba(0,0,0,0.000) 83.3%, rgba(0,0,0,0.000) 87.5%, rgba(0,0,0,0.000) 91.7%, rgba(0,0,0,0.000) 95.8%, rgba(0,0,0,0.000) 100.0%);
+          mask-image: linear-gradient(180deg, rgba(0,0,0,0.000) 0.0%, rgba(0,0,0,0.074) 4.2%, rgba(0,0,0,0.259) 8.3%, rgba(0,0,0,0.500) 12.5%, rgba(0,0,0,0.741) 16.7%, rgba(0,0,0,0.926) 20.8%, rgba(0,0,0,1.000) 25.0%, rgba(0,0,0,1.000) 29.2%, rgba(0,0,0,1.000) 33.3%, rgba(0,0,0,0.995) 37.5%, rgba(0,0,0,0.933) 41.7%, rgba(0,0,0,0.817) 45.8%, rgba(0,0,0,0.664) 50.0%, rgba(0,0,0,0.493) 54.2%, rgba(0,0,0,0.323) 58.3%, rgba(0,0,0,0.172) 62.5%, rgba(0,0,0,0.059) 66.7%, rgba(0,0,0,0.003) 70.8%, rgba(0,0,0,0.000) 75.0%, rgba(0,0,0,0.000) 79.2%, rgba(0,0,0,0.000) 83.3%, rgba(0,0,0,0.000) 87.5%, rgba(0,0,0,0.000) 91.7%, rgba(0,0,0,0.000) 95.8%, rgba(0,0,0,0.000) 100.0%);
+        }
+      }
     </style>
   </head>
   <body>
@@ -6246,8 +6715,8 @@
       <!-- ===== 1b. HERO PHOTO BAND — cultivation (grow room) photo; class name kept as .factory-band ===== -->
       <div class="factory-band" aria-hidden="true" data-pane="home">
         <picture>
-          <source media="(max-width: 600px)" srcset="assets/img/hero-grow-workers-portrait-hq.webp" width="1067" height="1334" />
-          <img src="assets/img/hero-grow-workers-wide-hq.webp" alt="" width="2000" height="1234" fetchpriority="high" decoding="async" />
+          <source media="(max-width: 600px)" srcset="assets/img/hero-grow-workers-portrait-sharp.webp" width="1400" height="1750" />
+          <img src="assets/img/hero-grow-workers-wide-sharp.webp" alt="" width="2600" height="1605" fetchpriority="high" decoding="async" />
         </picture>
       </div>
 
