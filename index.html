@@ -6524,7 +6524,7 @@
         }
         .factory-band img {
           object-position: 46% 50%;
-          transform: translateY(-17%);
+          transform: translateY(-10%); /* phone: workers sit a little lower than v128 (-17%), clear of the logo haze */
         }
       }
 
@@ -6687,6 +6687,91 @@
           box-shadow: inset 0 1px 0 #fff, 0 10px 24px rgba(31, 116, 104, 0.14);
         }
       }
+
+      /* ===== v137 — "View Menu" carries a small menu-list icon in front of the label ===== */
+      .btn-primary .btn-icon {
+        flex: none;
+        margin-right: 10px;
+        transition: transform 0.25s cubic-bezier(0.3, 0.8, 0.3, 1);
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .btn-primary:hover .btn-icon {
+          transform: translateX(-2px) scale(1.1);
+        }
+      }
+      .hero-actions .btn-primary {
+        gap: 0;
+      }
+
+      /* ===== v138 — View Menu icon: a menu page (document + text lines) with the brand leaf cut out of it, sitting in a soft round badge
+         so it reads at a glance (same idea as the LINE badge in the footer pill) ===== */
+      .btn-primary .btn-icon-doc {
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        margin: 0 10px 0 -6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+        position: relative;
+        transition: transform 0.25s cubic-bezier(0.3, 0.8, 0.3, 1), background 0.25s ease;
+      }
+      .btn-primary .btn-icon-doc::before {
+        content: "";
+        width: 20px;
+        height: 25px;
+        background: #fff;
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 30%22%3E%3Cpath fill-rule=%22evenodd%22 d=%22M6 1h8l7 7v17a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V5a4 4 0 0 1 4-4zM6.2 22.6h11.6a.6.6 0 0 1 0 1.2H6.2a.6.6 0 0 1 0-1.2zM6.2 25.2h6.4a.6.6 0 0 1 0 1.2H6.2a.6.6 0 0 1 0-1.2z%22/%3E%3C/svg%3E"), url("assets/img/logo-icon.webp");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 30%22%3E%3Cpath fill-rule=%22evenodd%22 d=%22M6 1h8l7 7v17a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V5a4 4 0 0 1 4-4zM6.2 22.6h11.6a.6.6 0 0 1 0 1.2H6.2a.6.6 0 0 1 0-1.2zM6.2 25.2h6.4a.6.6 0 0 1 0 1.2H6.2a.6.6 0 0 1 0-1.2z%22/%3E%3C/svg%3E"), url("assets/img/logo-icon.webp");
+        -webkit-mask-repeat: no-repeat, no-repeat;
+        mask-repeat: no-repeat, no-repeat;
+        -webkit-mask-position: center, 50% 38%;
+        mask-position: center, 50% 38%;
+        -webkit-mask-size: 100% 100%, 66% auto;
+        mask-size: 100% 100%, 66% auto;
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+      @media (hover: hover) and (pointer: fine) {
+        .btn-primary:hover .btn-icon-doc {
+          transform: scale(1.1);
+          background: rgba(255, 255, 255, 0.3);
+        }
+      }
+
+      /* ===== v139 — phone: the logo at the top pops. A soft white haze sits between the photo and the logo (the photo's ceiling
+         no longer fights with the lettering), and the logo gets a thin white glow edge. Slightly larger too. ===== */
+      @media (max-width: 600px) {
+        .factory-band::before {
+          content: "";
+          display: block;
+          position: absolute;
+          z-index: 2;
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 140px;
+          pointer-events: none;
+          background: linear-gradient(180deg, rgba(246, 251, 250, 0.970) 0%, rgba(246, 251, 250, 0.970) 40%, rgba(246, 251, 250, 0.898) 50%, rgba(246, 251, 250, 0.719) 60%, rgba(246, 251, 250, 0.485) 70%, rgba(246, 251, 250, 0.251) 80%, rgba(246, 251, 250, 0.072) 90%, rgba(246, 251, 250, 0.000) 100%);
+        }
+        .factory-band::after {
+          width: 190px;
+          height: 58px;
+          filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.85));
+        }
+      }
+
+      /* ===== v140 — even spacing around the headline block: the space above the headline (from the buttons) equals the space
+         below the lead (to "Our Cultivation Partner") — 32px on phones. ===== */
+      @media (max-width: 600px) {
+        .hero-copy > .hero-actions { margin-bottom: 32px; }
+        .hero-copy > .hero-lead { margin-bottom: 0; }
+        .hero { padding-bottom: 8px; }
+        #about { padding-top: 24px; }
+      }
     </style>
   </head>
   <body>
@@ -6731,7 +6816,7 @@
               We offer dedicated wholesale services for cannabis products across Thailand.
             </p>
             <div class="hero-actions">
-              <a class="btn-primary" href="#menu">View Menu →</a>
+              <a class="btn-primary" href="#menu"><span class="btn-icon-doc" aria-hidden="true"></span><span>View Menu →</span></a>
               <a class="btn-glass" href="https://lin.ee/uqdLr7f" target="_blank" rel="noopener">Contact Sales on LINE</a>
             </div>
           </div>
