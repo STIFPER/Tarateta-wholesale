@@ -6772,6 +6772,12 @@
         .hero { padding-bottom: 8px; }
         #about { padding-top: 24px; }
       }
+
+      /* ===== v141 — the Menu section no longer paints its own colour patches (they were placed by % of the section's height,
+         so filtering the strains moved/changed them and broke the continuity with the page). The page background shows through, unchanged. ===== */
+      #menu {
+        background: none;
+      }
     </style>
   </head>
   <body>
